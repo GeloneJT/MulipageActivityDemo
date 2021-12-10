@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MultiPageActivityDemo</string>
+    <string name="company_name">ABC Demo Company</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="welcome_message">Welcome</string>
+    <string name="home_button">HOME</string>
+    <string name="enter_name_register">Enter Name</string>
+    <string name="enter_password_register">Enter Password</string>
+    <string name="enter_city">Enter City</string>
+    <string name="next">Next</string>
+    <string name="okay">OK</string>
+    <string name="done">DONE</string>
+    <string name="enter_date_of_birthday">Enter Date of Birthday using the Spinner</string>
+</resources>
