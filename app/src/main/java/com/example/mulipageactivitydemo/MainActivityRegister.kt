@@ -46,7 +46,7 @@ class MainActivityRegister : AppCompatActivity() {
             dobText.text = "$month/$day/$year"
         }
 
-        fun showAlertFail(){
+        fun showAlertFail() {
             // Alert for user failing to enter information
             val alertFail = AlertDialog.Builder(this)
             alertFail.setTitle("No information entered")
@@ -61,7 +61,14 @@ class MainActivityRegister : AppCompatActivity() {
             }
             val myAlertFail: AlertDialog = alertFail.create()
             myAlertFail.show()
-
+        }
+        fun runRegisterIntent(rName:String,rPass:String,rCity:String,rDob:String){
+            intent = Intent(this, MainActivityConfirmation::class.java)
+            intent.putExtra("name", rName)
+            intent.putExtra("password", rPass)
+            intent.putExtra("city", rCity)
+            intent.putExtra("dob", rDob)
+            startActivity(intent)
         }
 
         registerButton.setOnClickListener {
@@ -74,8 +81,6 @@ class MainActivityRegister : AppCompatActivity() {
                 .joinToString(" ")
             val rDob = dobText.text.toString()
 
-
-
             // Alert for user to confirm the information that was added is correct
             val alertSuccess = AlertDialog.Builder(this)
             alertSuccess.setTitle("Information confirmation")
@@ -83,12 +88,7 @@ class MainActivityRegister : AppCompatActivity() {
             alertSuccess.setIcon(android.R.drawable.ic_dialog_alert)
 
             alertSuccess.setPositiveButton("Yes") { _, _ ->
-                intent = Intent(this, MainActivityConfirmation::class.java)
-                intent.putExtra("name", rName)
-                intent.putExtra("password", rPass)
-                intent.putExtra("city", rCity)
-                intent.putExtra("dob", rDob)
-                startActivity(intent)
+                runRegisterIntent(rName,rPass,rCity,rDob)
             }
             alertSuccess.setNegativeButton("No") { _, _ ->
                 Toast.makeText(this, "Reenter incorrect information", Toast.LENGTH_LONG).show()
