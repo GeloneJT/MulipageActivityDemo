@@ -28,22 +28,26 @@ class MainActivityLogin : AppCompatActivity() {
         loginButton.setBackgroundColor(Color.BLUE)
         homeButton.setBackgroundColor(Color.RED)
 
+        fun showBadAlert() {
+            val alertFail = AlertDialog.Builder(this)
+            alertFail.setTitle("Check name and password!")
+            alertFail.setMessage("Reenter login credentials?")
+            alertFail.setIcon(android.R.drawable.ic_dialog_alert)
+
+            alertFail.setPositiveButton("Try Again") { _, _ ->
+                Toast.makeText(this, "Reenter Name and Password", Toast.LENGTH_SHORT).show()
+            }
+            alertFail.setNegativeButton("Exit") { _, _ ->
+                finish()
+            }
+            val myAlertFail: AlertDialog = alertFail.create()
+            myAlertFail.show()
+        }
 
         loginButton.setOnClickListener {
             val validName = userName.text.toString()
             val validPassword = userPassword.text.toString()
-            val alert = AlertDialog.Builder(this)
-            alert.setTitle("Check name and password!")
-            alert.setMessage("Reenter login credentials?")
-            alert.setIcon(android.R.drawable.ic_dialog_alert)
 
-            alert.setPositiveButton("Try Again") { _, _ ->
-                Toast.makeText(this, "Reenter name,password and city", Toast.LENGTH_SHORT).show()
-            }
-            alert.setNegativeButton("Exit") { _, _ ->
-                finish()
-            }
-            val myAlert: AlertDialog = alert.create()
 
             if (validName == "admin" && validPassword == "admin123") {
                 intent = Intent(this, MainActivityStore::class.java)
@@ -51,7 +55,8 @@ class MainActivityLogin : AppCompatActivity() {
                 intent.putExtra("password", validPassword)
                 startActivity(intent)
             } else
-                myAlert.show()
+                showBadAlert()
+
         }
 
         homeButton.setOnClickListener {
