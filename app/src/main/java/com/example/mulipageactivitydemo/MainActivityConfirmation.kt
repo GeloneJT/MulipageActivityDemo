@@ -60,7 +60,6 @@ class MainActivityConfirmation : AppCompatActivity() {
                     .setAutoCancel(true)
             }
             notificationManager.notify(8793, builder.build())
-
         }
         fun showAlertCompleted(){
             val alert = AlertDialog.Builder(this)
@@ -70,7 +69,6 @@ class MainActivityConfirmation : AppCompatActivity() {
                         "Click Exit to return to registration."
             )
             alert.setIcon(android.R.drawable.ic_dialog_alert)
-
             alert.setPositiveButton("Okay") { _, _ ->
                 runNotification()
             }

@@ -20,6 +20,7 @@ class MainActivityRegister : AppCompatActivity() {
     private lateinit var dobEntered: DatePicker
     private lateinit var dobText: TextView
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_register)
@@ -31,7 +32,6 @@ class MainActivityRegister : AppCompatActivity() {
         citySelect = findViewById(R.id.cityPlace)
         dobEntered = findViewById(R.id.datePickerRegister)
         dobText = findViewById(R.id.dobText)
-
         registerButton.setBackgroundColor(Color.GREEN)
         nextButton.setBackgroundColor(Color.CYAN)
 
@@ -109,7 +109,6 @@ class MainActivityRegister : AppCompatActivity() {
             } else
                 showAlertFail()
         }
-
         nextButton.setOnClickListener {
             intent = Intent(this, MainActivityStore::class.java)
             startActivity(intent)
