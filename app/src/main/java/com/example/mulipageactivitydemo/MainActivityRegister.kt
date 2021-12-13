@@ -70,6 +70,16 @@ class MainActivityRegister : AppCompatActivity() {
             intent.putExtra("dob", rDob)
             startActivity(intent)
         }
+        fun runSharedPreference(rName:String,rPass: String,rCity:String,rDob:String){
+            val sharedPref: SharedPreferences =
+                this.getSharedPreferences("MyFile", Context.MODE_PRIVATE)
+            val sharedPrefEdit: SharedPreferences.Editor = sharedPref.edit()
+            sharedPrefEdit.putString("name", rName)
+            sharedPrefEdit.putString("password", rPass)
+            sharedPrefEdit.putString("city", rCity)
+            sharedPrefEdit.putString("dob", rDob)
+            sharedPrefEdit.apply()
+        }
 
         registerButton.setOnClickListener {
             val rName = nameEntered.text.toString()
@@ -97,14 +107,8 @@ class MainActivityRegister : AppCompatActivity() {
 
             if (rName != "" && rPass != "" && rCity != "") {
                 myAlertSuccess.show()
-                val sharedPref: SharedPreferences =
-                    this.getSharedPreferences("MyFile", Context.MODE_PRIVATE)
-                val sharedPrefEdit: SharedPreferences.Editor = sharedPref.edit()
-                sharedPrefEdit.putString("name", rName)
-                sharedPrefEdit.putString("password", rPass)
-                sharedPrefEdit.putString("city", rCity)
-                sharedPrefEdit.putString("dob", rDob)
-                sharedPrefEdit.apply()
+                runSharedPreference(rName,rPass,rCity,rDob)
+
             } else
                 showAlertFail()
         }
