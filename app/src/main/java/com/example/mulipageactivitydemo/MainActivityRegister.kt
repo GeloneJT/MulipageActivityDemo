@@ -46,16 +46,7 @@ class MainActivityRegister : AppCompatActivity() {
             dobText.text = "$month/$day/$year"
         }
 
-        registerButton.setOnClickListener {
-            val rName = nameEntered.text.toString()
-                .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
-            val rPass = passwordEntered.text.toString()
-            val rCity = citySelect.text.toString()
-                .split(" ")
-                .map { it.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() } }
-                .joinToString(" ")
-            val rDob = dobText.text.toString()
-
+        fun showAlertFail(){
             // Alert for user failing to enter information
             val alertFail = AlertDialog.Builder(this)
             alertFail.setTitle("No information entered")
@@ -69,6 +60,21 @@ class MainActivityRegister : AppCompatActivity() {
                 finish()
             }
             val myAlertFail: AlertDialog = alertFail.create()
+            myAlertFail.show()
+
+        }
+
+        registerButton.setOnClickListener {
+            val rName = nameEntered.text.toString()
+                .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+            val rPass = passwordEntered.text.toString()
+            val rCity = citySelect.text.toString()
+                .split(" ")
+                .map { it.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() } }
+                .joinToString(" ")
+            val rDob = dobText.text.toString()
+
+
 
             // Alert for user to confirm the information that was added is correct
             val alertSuccess = AlertDialog.Builder(this)
@@ -100,7 +106,7 @@ class MainActivityRegister : AppCompatActivity() {
                 sharedPrefEdit.putString("dob", rDob)
                 sharedPrefEdit.apply()
             } else
-                myAlertFail.show()
+                showAlertFail()
         }
 
         nextButton.setOnClickListener {
