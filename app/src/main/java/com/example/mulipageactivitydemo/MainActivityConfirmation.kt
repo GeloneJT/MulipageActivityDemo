@@ -36,7 +36,6 @@ class MainActivityConfirmation : AppCompatActivity() {
 
         val sharedPref: SharedPreferences =
             this.getSharedPreferences("MyFile", Context.MODE_PRIVATE)
-
         val regName = sharedPref.getString("name", "N/A")
         val regPass = sharedPref.getString("password", "N/A")
         val regCity = sharedPref.getString("city", "N/A")
@@ -45,9 +44,25 @@ class MainActivityConfirmation : AppCompatActivity() {
         "Hello $regName \n Set password is: $regPass \n Saved city is: $regCity \n Birthday is: $regDob ".also {
             infoDisplay.text = it
         }
-        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        fun runNotification(){
+            notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                notificationChannel =
+                    NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
+                notificationChannel.enableLights(true)
+                notificationChannel.lightColor = Color.GREEN
+                notificationChannel.enableVibration(true)
+                notificationManager.createNotificationChannel(notificationChannel)
+                builder = Notification.Builder(this, channelId)
+                    .setContentTitle("ABC Demo Company")
+                    .setContentText("Your information has been saved successfully")
+                    .setSmallIcon(android.R.drawable.btn_star_big_on)
+                    .setAutoCancel(true)
+            }
+            notificationManager.notify(8793, builder.build())
 
-        okayButton.setOnClickListener {
+        }
+        fun showAlertCompleted(){
             val alert = AlertDialog.Builder(this)
             alert.setTitle("ABC Demo Company Alert")
             alert.setMessage(
@@ -57,20 +72,7 @@ class MainActivityConfirmation : AppCompatActivity() {
             alert.setIcon(android.R.drawable.ic_dialog_alert)
 
             alert.setPositiveButton("Okay") { _, _ ->
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    notificationChannel =
-                        NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
-                    notificationChannel.enableLights(true)
-                    notificationChannel.lightColor = Color.GREEN
-                    notificationChannel.enableVibration(true)
-                    notificationManager.createNotificationChannel(notificationChannel)
-                    builder = Notification.Builder(this, channelId)
-                        .setContentTitle("ABC Demo Company")
-                        .setContentText("Your information has been saved successfully")
-                        .setSmallIcon(android.R.drawable.btn_star_big_on)
-                        .setAutoCancel(true)
-                }
-                notificationManager.notify(8793, builder.build())
+                runNotification()
             }
             alert.setNegativeButton("Exit") { _, _ ->
                 intent = Intent(this, MainActivityRegister::class.java)
@@ -79,7 +81,9 @@ class MainActivityConfirmation : AppCompatActivity() {
             val myAlert: AlertDialog = alert.create()
             myAlert.show()
         }
-
+        okayButton.setOnClickListener {
+            showAlertCompleted()
+        }
         doneButton.setOnClickListener {
             intent = Intent(this, MainActivityStore::class.java)
             startActivity(intent)

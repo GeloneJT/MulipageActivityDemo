@@ -35,7 +35,6 @@ class MainActivityRegister : AppCompatActivity() {
         registerButton.setBackgroundColor(Color.GREEN)
         nextButton.setBackgroundColor(Color.CYAN)
 
-
         val today = Calendar.getInstance()
         dobEntered.init(
             today.get(Calendar.YEAR),
@@ -101,14 +100,12 @@ class MainActivityRegister : AppCompatActivity() {
             val rPass = passwordEntered.text.toString()
             val rCity = citySelect.text.toString()
                 .split(" ")
-                .map { it.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() } }
-                .joinToString(" ")
+                .joinToString(" ") { it1 -> it1.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() } }
             val rDob = dobText.text.toString()
 
             if (rName != "" && rPass != "" && rCity != "") {
                 showAlertSuccess(rName,rPass,rCity,rDob)
                 runSharedPreference(rName,rPass,rCity,rDob)
-
             } else
                 showAlertFail()
         }
