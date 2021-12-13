@@ -62,13 +62,27 @@ class MainActivityRegister : AppCompatActivity() {
             val myAlertFail: AlertDialog = alertFail.create()
             myAlertFail.show()
         }
-        fun runRegisterIntent(rName:String,rPass:String,rCity:String,rDob:String){
-            intent = Intent(this, MainActivityConfirmation::class.java)
-            intent.putExtra("name", rName)
-            intent.putExtra("password", rPass)
-            intent.putExtra("city", rCity)
-            intent.putExtra("dob", rDob)
-            startActivity(intent)
+        fun showAlertSuccess(rName:String,rPass:String,rCity:String,rDob:String){
+            // Alert for user to confirm the information that was added is correct
+            val alertSuccess = AlertDialog.Builder(this)
+            alertSuccess.setTitle("Information confirmation")
+            alertSuccess.setMessage("Is the information added correct?")
+            alertSuccess.setIcon(android.R.drawable.ic_dialog_alert)
+
+            alertSuccess.setPositiveButton("Yes") { _, _ ->
+                intent = Intent(this, MainActivityConfirmation::class.java)
+                intent.putExtra("name", rName)
+                intent.putExtra("password", rPass)
+                intent.putExtra("city", rCity)
+                intent.putExtra("dob", rDob)
+                startActivity(intent)
+            }
+            alertSuccess.setNegativeButton("No") { _, _ ->
+                Toast.makeText(this, "Reenter incorrect information", Toast.LENGTH_LONG).show()
+            }
+            val myAlertSuccess: AlertDialog = alertSuccess.create()
+            myAlertSuccess.show()
+
         }
         fun runSharedPreference(rName:String,rPass: String,rCity:String,rDob:String){
             val sharedPref: SharedPreferences =
@@ -91,22 +105,8 @@ class MainActivityRegister : AppCompatActivity() {
                 .joinToString(" ")
             val rDob = dobText.text.toString()
 
-            // Alert for user to confirm the information that was added is correct
-            val alertSuccess = AlertDialog.Builder(this)
-            alertSuccess.setTitle("Information confirmation")
-            alertSuccess.setMessage("Is the information added correct?")
-            alertSuccess.setIcon(android.R.drawable.ic_dialog_alert)
-
-            alertSuccess.setPositiveButton("Yes") { _, _ ->
-                runRegisterIntent(rName,rPass,rCity,rDob)
-            }
-            alertSuccess.setNegativeButton("No") { _, _ ->
-                Toast.makeText(this, "Reenter incorrect information", Toast.LENGTH_LONG).show()
-            }
-            val myAlertSuccess: AlertDialog = alertSuccess.create()
-
             if (rName != "" && rPass != "" && rCity != "") {
-                myAlertSuccess.show()
+                showAlertSuccess(rName,rPass,rCity,rDob)
                 runSharedPreference(rName,rPass,rCity,rDob)
 
             } else
