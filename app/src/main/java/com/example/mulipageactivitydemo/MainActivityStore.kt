@@ -26,16 +26,11 @@ class MainActivityStore : AppCompatActivity() {
             this.getSharedPreferences("MyFile", Context.MODE_PRIVATE)
         val regName = sharedPref.getString("name", "N/A")
         val b: Bundle? = intent.extras
-        val name = b?.get("name")
 
-        if (name == "admin"){
-            "Welcome $name".also { welcomeTextView.text = it }
+        when (val name = b?.get("name")){
+            "admin" -> "Welcome $name".also { welcomeTextView.text = it }
+            name -> "Welcome $regName".also { welcomeTextView.text = it }
         }
-        else
-            "Welcome $regName".also { welcomeTextView.text = it }
-
-
-
         homeButton.setOnClickListener {
             intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
