@@ -122,7 +122,7 @@ class MainActivityRegister : AppCompatActivity() {
          */
         registerButton.setOnClickListener {
             val userInfo = UserInput()
-            if (userInfo.rName != "" && userInfo.rPass != "" && userInfo.rCity != "") {
+            if (userInfo.rName != "" && userInfo.rPass != "" && userInfo.rCity != "" && userInfo.rDob != "") {
                 showAlertSuccess()
                 runSharedPreference()
             } else
