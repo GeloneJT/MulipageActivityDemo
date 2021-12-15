@@ -11,7 +11,6 @@ import androidx.appcompat.app.AlertDialog
 import java.util.*
 
 class MainActivityRegister : AppCompatActivity() {
-
     private lateinit var nextButton: Button
     private lateinit var registerButton: Button
     private lateinit var nameEntered: EditText
@@ -19,7 +18,6 @@ class MainActivityRegister : AppCompatActivity() {
     private lateinit var citySelect: EditText
     private lateinit var dobEntered: DatePicker
     private lateinit var dobText: TextView
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +32,9 @@ class MainActivityRegister : AppCompatActivity() {
         dobText = findViewById(R.id.dobText)
         registerButton.setBackgroundColor(Color.GREEN)
         nextButton.setBackgroundColor(Color.CYAN)
-
+        /**
+         * Instantiates the datePicker
+         */
         val today = Calendar.getInstance()
         dobEntered.init(
             today.get(Calendar.YEAR),
@@ -44,7 +44,9 @@ class MainActivityRegister : AppCompatActivity() {
             val month = month + 1
             dobText.text = "$month/$day/$year"
         }
-
+        /**
+         * Creates a UserInput class that serves a blueprint for the obj storing the entered information
+         */
         class UserInput{
             val rName = nameEntered.text.toString()
                 .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
@@ -54,9 +56,10 @@ class MainActivityRegister : AppCompatActivity() {
                 .joinToString(" ") { it1 -> it1.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() } }
             val rDob = dobText.text.toString()
         }
-
+        /**
+         * Alert for user failing to enter information
+         */
         fun showAlertFail() {
-            // Alert for user failing to enter information
             val alertFail = AlertDialog.Builder(this)
             alertFail.setTitle("No information entered")
             alertFail.setMessage("Please enter and name, password and city")
@@ -71,6 +74,10 @@ class MainActivityRegister : AppCompatActivity() {
             val myAlertFail: AlertDialog = alertFail.create()
             myAlertFail.show()
         }
+        /**
+         * Alert for user successfully entering information.
+         * Once that is confirmed an intent is executed moving the user to the next page
+         */
         fun showAlertSuccess(){
             val userInfo = UserInput()
             // Alert for user to confirm the information that was added is correct
@@ -94,6 +101,9 @@ class MainActivityRegister : AppCompatActivity() {
             myAlertSuccess.show()
 
         }
+        /**
+         * Generates SharedPreference data for user entered information
+         */
         fun runSharedPreference(){
             val userInfo = UserInput()
             val sharedPref: SharedPreferences =
@@ -105,7 +115,11 @@ class MainActivityRegister : AppCompatActivity() {
             sharedPrefEdit.putString("dob", userInfo.rDob)
             sharedPrefEdit.apply()
         }
-
+        /**
+         * On pressing the register button checks the created UserInput obj for data.
+         * If the requirements are satisfied the showAlertSuccess and runSharedPreference function are executed
+         * If the requirement are not satisfied showAlertFail is executed prompting the user to enter information to continue
+         */
         registerButton.setOnClickListener {
             val userInfo = UserInput()
             if (userInfo.rName != "" && userInfo.rPass != "" && userInfo.rCity != "") {
@@ -114,6 +128,11 @@ class MainActivityRegister : AppCompatActivity() {
             } else
                 showAlertFail()
         }
+        /**
+         * On pressing the next button skips the registration process and displays the
+         * final "Home" screen with default images and displays a Welcome message
+         * accompanied with the name of the last user either logged in or registered successfully
+         */
         nextButton.setOnClickListener {
             intent = Intent(this, MainActivityStore::class.java)
             startActivity(intent)
