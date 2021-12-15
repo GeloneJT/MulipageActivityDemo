@@ -3,11 +3,11 @@ package com.example.mulipageactivitydemo
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat.*
 import java.util.*
 
 class MainActivityRegister : AppCompatActivity() {
@@ -30,8 +30,8 @@ class MainActivityRegister : AppCompatActivity() {
         citySelect = findViewById(R.id.cityPlace)
         dobEntered = findViewById(R.id.datePickerRegister)
         dobText = findViewById(R.id.dobText)
-        registerButton.setBackgroundColor(Color.GREEN)
-        nextButton.setBackgroundColor(Color.CYAN)
+        registerButton.setBackgroundColor(getColor(this, R.color.hunter_green))
+        nextButton.setBackgroundColor(getColor(this, R.color.midnight_blue))
         /**
          * Instantiates the datePicker
          */

@@ -1,11 +1,11 @@
 package com.example.mulipageactivitydemo
 
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
 import android.widget.Button
+import androidx.core.content.ContextCompat.*
+import com.example.mulipageactivitydemo.R.color.midnight_blue
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,10 +17,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         loginButton = findViewById(R.id.loginButton)
-        loginButton.setBackgroundColor(Color.BLUE)
+        loginButton.setBackgroundColor(getColor(this, midnight_blue))
 
         registerButton = findViewById(R.id.registerButton)
-        registerButton.setBackgroundColor(Color.GREEN)
+        registerButton.setBackgroundColor(getColor(this, R.color.hunter_green))
 
         loginButton.setOnClickListener {
             intent = Intent(this, MainActivityLogin::class.java)

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MultiPageActivityDemo</string>
+    <string name="app_name">MultiPage Activity Demo</string>
     <string name="company_name">ABC Demo Company</string>
     <string name="login">Login</string>
     <string name="register">Register</string>

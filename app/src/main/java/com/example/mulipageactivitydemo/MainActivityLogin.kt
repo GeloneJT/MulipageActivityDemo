@@ -1,13 +1,15 @@
 package com.example.mulipageactivitydemo
 
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat.*
+import com.example.mulipageactivitydemo.R.color.hunter_green
+import com.example.mulipageactivitydemo.R.color.midnight_blue
 
 class MainActivityLogin : AppCompatActivity() {
 
@@ -25,8 +27,8 @@ class MainActivityLogin : AppCompatActivity() {
         loginButton = findViewById(R.id.loginButton)
         homeButton = findViewById(R.id.homeButton)
 
-        loginButton.setBackgroundColor(Color.BLUE)
-        homeButton.setBackgroundColor(Color.RED)
+        loginButton.setBackgroundColor(getColor(this, midnight_blue))
+        homeButton.setBackgroundColor(getColor(this, hunter_green))
 
         fun showBadAlert() {
             val alertFail = AlertDialog.Builder(this)

@@ -7,5 +7,6 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="hunter_green">#8303531E</color>
+    <color name="hunter_green">#01501C</color>
+    <color name="midnight_blue">#011B50</color>
 </resources>
