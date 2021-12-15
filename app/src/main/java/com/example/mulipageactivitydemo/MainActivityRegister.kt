@@ -45,6 +45,16 @@ class MainActivityRegister : AppCompatActivity() {
             dobText.text = "$month/$day/$year"
         }
 
+        class UserInput{
+            val rName = nameEntered.text.toString()
+                .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+            val rPass = passwordEntered.text.toString()
+            val rCity = citySelect.text.toString()
+                .split(" ")
+                .joinToString(" ") { it1 -> it1.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() } }
+            val rDob = dobText.text.toString()
+        }
+
         fun showAlertFail() {
             // Alert for user failing to enter information
             val alertFail = AlertDialog.Builder(this)
@@ -95,17 +105,10 @@ class MainActivityRegister : AppCompatActivity() {
         }
 
         registerButton.setOnClickListener {
-            val rName = nameEntered.text.toString()
-                .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
-            val rPass = passwordEntered.text.toString()
-            val rCity = citySelect.text.toString()
-                .split(" ")
-                .joinToString(" ") { it1 -> it1.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() } }
-            val rDob = dobText.text.toString()
-
-            if (rName != "" && rPass != "" && rCity != "") {
-                showAlertSuccess(rName,rPass,rCity,rDob)
-                runSharedPreference(rName,rPass,rCity,rDob)
+            val userInfo = UserInput()
+            if (userInfo.rName != "" && userInfo.rPass != "" && userInfo.rCity != "") {
+                showAlertSuccess(userInfo.rName,userInfo.rPass,userInfo.rCity,userInfo.rDob)
+                runSharedPreference(userInfo.rName,userInfo.rPass,userInfo.rCity,userInfo.rDob)
             } else
                 showAlertFail()
         }
