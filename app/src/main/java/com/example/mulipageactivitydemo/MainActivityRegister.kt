@@ -71,7 +71,8 @@ class MainActivityRegister : AppCompatActivity() {
             val myAlertFail: AlertDialog = alertFail.create()
             myAlertFail.show()
         }
-        fun showAlertSuccess(rName:String,rPass:String,rCity:String,rDob:String){
+        fun showAlertSuccess(){
+            val userInfo = UserInput()
             // Alert for user to confirm the information that was added is correct
             val alertSuccess = AlertDialog.Builder(this)
             alertSuccess.setTitle("Information confirmation")
@@ -80,10 +81,10 @@ class MainActivityRegister : AppCompatActivity() {
 
             alertSuccess.setPositiveButton("Yes") { _, _ ->
                 intent = Intent(this, MainActivityConfirmation::class.java)
-                intent.putExtra("name", rName)
-                intent.putExtra("password", rPass)
-                intent.putExtra("city", rCity)
-                intent.putExtra("dob", rDob)
+                intent.putExtra("name", userInfo.rName)
+                intent.putExtra("password", userInfo.rPass)
+                intent.putExtra("city", userInfo.rCity)
+                intent.putExtra("dob", userInfo.rDob)
                 startActivity(intent)
             }
             alertSuccess.setNegativeButton("No") { _, _ ->
@@ -93,22 +94,23 @@ class MainActivityRegister : AppCompatActivity() {
             myAlertSuccess.show()
 
         }
-        fun runSharedPreference(rName:String,rPass: String,rCity:String,rDob:String){
+        fun runSharedPreference(){
+            val userInfo = UserInput()
             val sharedPref: SharedPreferences =
                 this.getSharedPreferences("MyFile", Context.MODE_PRIVATE)
             val sharedPrefEdit: SharedPreferences.Editor = sharedPref.edit()
-            sharedPrefEdit.putString("name", rName)
-            sharedPrefEdit.putString("password", rPass)
-            sharedPrefEdit.putString("city", rCity)
-            sharedPrefEdit.putString("dob", rDob)
+            sharedPrefEdit.putString("name", userInfo.rName)
+            sharedPrefEdit.putString("password", userInfo.rPass)
+            sharedPrefEdit.putString("city", userInfo.rCity)
+            sharedPrefEdit.putString("dob", userInfo.rDob)
             sharedPrefEdit.apply()
         }
 
         registerButton.setOnClickListener {
             val userInfo = UserInput()
             if (userInfo.rName != "" && userInfo.rPass != "" && userInfo.rCity != "") {
-                showAlertSuccess(userInfo.rName,userInfo.rPass,userInfo.rCity,userInfo.rDob)
-                runSharedPreference(userInfo.rName,userInfo.rPass,userInfo.rCity,userInfo.rDob)
+                showAlertSuccess()
+                runSharedPreference()
             } else
                 showAlertFail()
         }
